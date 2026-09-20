@@ -1,0 +1,37 @@
+#define FLAME_SENSOR 34
+#define BUZZER 25
+#define LED 2
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(FLAME_SENSOR, INPUT);
+  pinMode(BUZZER, OUTPUT);
+  pinMode(LED, OUTPUT);
+
+  digitalWrite(BUZZER, LOW);
+  digitalWrite(LED, LOW);
+}
+
+void loop() {
+  int flameValue = analogRead(FLAME_SENSOR);
+
+  Serial.print("Flame Sensor Value: ");
+  Serial.println(flameValue);
+
+  // Adjust this threshold according to your sensor
+  if (flameValue < 2000) {
+    digitalWrite(BUZZER, HIGH);
+    digitalWrite(LED, HIGH);
+
+    Serial.println("FIRE DETECTED!");
+  }
+  else {
+    digitalWrite(BUZZER, LOW);
+    digitalWrite(LED, LOW);
+
+    Serial.println("No Fire Detected");
+  }
+
+  delay(500);
+}
